@@ -1,11 +1,13 @@
 import React from 'react';
-import { TasksProps } from './Tasks.types';
+import { TasksPageProps } from './Tasks.types';
 import { PageContainer } from 'components/index';
+import { Tasks } from 'modules/index';
 
-export const Tasks = (props: TasksProps) => {
+export const TasksPage = (props: TasksPageProps) => {
   return (
     <PageContainer>
       <h1>Tasks</h1>
+      <Tasks />
     </PageContainer>
   );
 };

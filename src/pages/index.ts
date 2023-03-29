@@ -1,4 +1,4 @@
 export * from './AddTask';
 export * from './EditTask';
-export * from './Tasks';
+export * from './TasksPage';
 export * from './Page404';

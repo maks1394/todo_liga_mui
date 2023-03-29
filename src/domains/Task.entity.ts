@@ -1,5 +1,5 @@
 export interface TaskEntity {
-  taskId: number;
+  taskId: string;
   title: string;
   info: string;
   important: boolean;
