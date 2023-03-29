@@ -17,4 +17,7 @@ export class MockAgent {
       throw new Error('Error from patch');
     }
   }
+  async deleteTask(taskId: string): Promise<void> {
+    await sleep(1000);
+  }
 }

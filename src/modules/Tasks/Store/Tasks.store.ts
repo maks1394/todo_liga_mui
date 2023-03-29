@@ -30,10 +30,22 @@ export class TasksStore {
       this._tasksStatus = 'error';
     }
   }
-  async updateTask(taskId: string, updatedTask: Partial<Omit<TaskEntity, 'id'>>) {
+  async updateTask(taskId: string, newTaskForUpdate: Partial<Omit<TaskEntity, 'id'>>): Promise<void> {
     try {
-      const task = await this.rootStore.agent.updateTask(taskId, updatedTask);
-      this._tasks = this._tasks.map((el) => (el.taskId === task.taskId ? task : el));
+      const task = await this.rootStore.agent.updateTask(taskId, newTaskForUpdate);
+      const index = this._tasks.findIndex((el) => el.taskId === task.taskId);
+      if (index >= 0) {
+        this._tasks.splice(index, 1, task);
+      }
+    } catch (err: unknown) {
+      console.log(err);
+    }
+  }
+  async deleteTask(taskId: string) {
+    try {
+      await this.rootStore.agent.deleteTask(taskId);
+      const index = this._tasks.findIndex((el) => el.taskId === taskId);
+      this._tasks.splice(index, 1);
     } catch (err: unknown) {
       console.log(err);
     }
