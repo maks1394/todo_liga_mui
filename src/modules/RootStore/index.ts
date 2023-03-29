@@ -1,1 +1,1 @@
-export * from './RootStore';
+export * from './Root.store';

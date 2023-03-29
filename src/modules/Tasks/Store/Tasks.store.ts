@@ -1,5 +1,5 @@
-import { action, computed, makeObservable, observable } from 'mobx';
-import { TaskEntity } from './../../../domains/Task.entity';
+import { action, computed, makeAutoObservable, makeObservable, observable } from 'mobx';
+import { TaskEntity } from 'domains/index';
 import { RootStore } from 'modules/index';
 
 type PrivateFields = '_tasks' | '_tasksStatus';
@@ -14,7 +14,9 @@ export class TasksStore {
       _tasksStatus: observable,
       tasks: computed,
       loadTasks: action,
+      updateTask: action,
     });
+    // makeAutoObservable(this);
     this.rootStore = rootStore;
   }
   async loadTasks() {
@@ -26,6 +28,14 @@ export class TasksStore {
     } catch (err: unknown) {
       console.log(err);
       this._tasksStatus = 'error';
+    }
+  }
+  async updateTask(taskId: string, updatedTask: Partial<Omit<TaskEntity, 'id'>>) {
+    try {
+      const task = await this.rootStore.agent.updateTask(taskId, updatedTask);
+      this._tasks = this._tasks.map((el) => (el.taskId === task.taskId ? task : el));
+    } catch (err: unknown) {
+      console.log(err);
     }
   }
   get tasks() {
