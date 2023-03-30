@@ -5,7 +5,9 @@ import { TasksList } from './Components/TasksList';
 
 function TasksProto() {
   useEffect(() => {
-    rootStoreInstance.tasksModule.loadTasks();
+    if (rootStoreInstance.tasksModule.tasks.length === 0) {
+      rootStoreInstance.tasksModule.loadTasks();
+    }
   }, []);
 
   return (

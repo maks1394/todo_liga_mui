@@ -20,4 +20,13 @@ export class MockAgent {
   async deleteTask(taskId: string): Promise<void> {
     await sleep(1000);
   }
+  async getTask(taskId: string): Promise<TaskEntity> {
+    await sleep(1000);
+    const task = rootStoreInstance.tasksModule.tasks.find((el) => el.taskId === taskId);
+    if (task) {
+      return task;
+    } else {
+      throw new Error('get Task agent mock error ');
+    }
+  }
 }
