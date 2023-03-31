@@ -5,9 +5,7 @@ import { TasksStoreInstance } from '.';
 
 function TasksProto() {
   useEffect(() => {
-    if (TasksStoreInstance.tasks.length === 0) {
-      TasksStoreInstance.loadTasks();
-    }
+    TasksStoreInstance.loadTasks();
   }, []);
 
   return (

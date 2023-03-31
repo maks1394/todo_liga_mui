@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { EditTaskStoreInstance } from '..';
+import { EditTaskStoreInstance } from '.';
 import { Loader } from 'components/index';
 
 function EditTaskFormProto() {
