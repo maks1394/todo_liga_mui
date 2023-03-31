@@ -1,16 +1,19 @@
 import { data } from './data';
 import { sleep } from 'helpers/index';
 import { TaskEntity } from 'domains/index';
-import { rootStoreInstance } from 'modules/index';
 
-export class MockAgent {
+class MockAgent {
   async loadTasks(): Promise<TaskEntity[]> {
     await sleep(1000);
     return data;
   }
   async updateTask(taskId: string, updatedTask: Partial<Omit<TaskEntity, 'id'>>): Promise<TaskEntity> {
     await sleep(1000);
-    const taskForUpdate = rootStoreInstance.tasksModule.tasks.find((el) => el.taskId === taskId);
+    const taskForUpdate = data.find((el) => el.taskId === taskId);
+    const index = data.findIndex((el) => el.taskId === taskId);
+    if (index >= 0 && taskForUpdate) {
+      data.splice(index, 1, { ...taskForUpdate, ...updatedTask });
+    }
     if (taskForUpdate) {
       return { ...taskForUpdate, ...updatedTask };
     } else {
@@ -19,10 +22,12 @@ export class MockAgent {
   }
   async deleteTask(taskId: string): Promise<void> {
     await sleep(1000);
+    const index = data.findIndex((el) => el.taskId === taskId);
+    data.splice(index, 1);
   }
   async getTask(taskId: string): Promise<TaskEntity> {
     await sleep(1000);
-    const task = rootStoreInstance.tasksModule.tasks.find((el) => el.taskId === taskId);
+    const task = data.find((el) => el.taskId === taskId);
     if (task) {
       return task;
     } else {
@@ -30,3 +35,5 @@ export class MockAgent {
     }
   }
 }
+
+export const mockAgentInstance = new MockAgent();

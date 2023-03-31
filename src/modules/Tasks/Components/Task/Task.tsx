@@ -2,8 +2,8 @@ import { observer } from 'mobx-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TaskProps } from './Task.types';
-import { rootStoreInstance } from 'modules/RootStore';
 import { Pages } from 'constants/index';
+import { TasksStoreInstance } from 'modules/index';
 
 function TaskProto(props: TaskProps) {
   const navigate = useNavigate();
@@ -19,17 +19,17 @@ function TaskProto(props: TaskProps) {
   };
   const onClickImportantHandler = async () => {
     setIsButtonDisable(true);
-    await rootStoreInstance.tasksModule.updateTask(props.taskId, { important: !props.important });
+    await TasksStoreInstance.updateTask(props.taskId, { important: !props.important });
     setIsButtonDisable(false);
   };
   const onClickDeleteHandler = async () => {
     setIsButtonDisable(true);
-    await rootStoreInstance.tasksModule.deleteTask(props.taskId);
+    await TasksStoreInstance.deleteTask(props.taskId);
     setIsButtonDisable(false);
   };
   const onClickCompleteHandler = async () => {
     setIsButtonDisable(true);
-    await rootStoreInstance.tasksModule.updateTask(props.taskId, { completed: !props.completed });
+    await TasksStoreInstance.updateTask(props.taskId, { completed: !props.completed });
     setIsButtonDisable(false);
   };
   const onClickEditHandler = () => {
