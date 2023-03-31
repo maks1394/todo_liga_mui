@@ -17,7 +17,7 @@ class TasksStore {
       loadTasks: action,
       updateTask: action,
       deleteTask: action,
-      setTaskStatusLoading: action,
+      unmountTasks: action,
     });
   }
 
@@ -37,6 +37,9 @@ class TasksStore {
 
   async updateTask(taskId: string, newTaskForUpdate: Partial<Omit<TaskEntity, 'id'>>): Promise<void> {
     try {
+      runInAction(() => {
+        this._tasksStatus = 'loading';
+      });
       await mockAgentInstance.updateTask(taskId, newTaskForUpdate);
       await this.loadTasks();
     } catch (err: unknown) {
@@ -46,13 +49,16 @@ class TasksStore {
 
   async deleteTask(taskId: string) {
     try {
+      runInAction(() => {
+        this._tasksStatus = 'loading';
+      });
       await mockAgentInstance.deleteTask(taskId);
       await this.loadTasks();
     } catch (err: unknown) {
       console.log(err);
     }
   }
-  setTaskStatusLoading() {
+  unmountTasks() {
     this._tasksStatus = 'loading';
   }
   get tasks() {

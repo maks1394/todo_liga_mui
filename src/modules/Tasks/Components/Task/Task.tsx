@@ -7,7 +7,7 @@ import { TasksStoreInstance } from 'modules/index';
 
 function TaskProto(props: TaskProps) {
   const navigate = useNavigate();
-  const [isButtonDisable, setIsButtonDisable] = useState(false);
+  // const [isButtonDisable, setIsButtonDisable] = useState(false);
   const buttonStyle = {
     backgroundColor: `${props.important ? 'red' : 'green'}`,
   };
@@ -18,19 +18,19 @@ function TaskProto(props: TaskProps) {
     backgroundColor: `${props.completed ? 'green' : 'gray'}`,
   };
   const onClickImportantHandler = async () => {
-    setIsButtonDisable(true);
+    // setIsButtonDisable(true);
     await TasksStoreInstance.updateTask(props.taskId, { important: !props.important });
-    setIsButtonDisable(false);
+    // setIsButtonDisable(false);
   };
   const onClickDeleteHandler = async () => {
-    setIsButtonDisable(true);
+    // setIsButtonDisable(true);
     await TasksStoreInstance.deleteTask(props.taskId);
-    setIsButtonDisable(false);
+    // setIsButtonDisable(false);
   };
   const onClickCompleteHandler = async () => {
-    setIsButtonDisable(true);
+    // setIsButtonDisable(true);
     await TasksStoreInstance.updateTask(props.taskId, { completed: !props.completed });
-    setIsButtonDisable(false);
+    // setIsButtonDisable(false);
   };
   const onClickEditHandler = () => {
     navigate(`${Pages.editBase}${props.taskId}`);
@@ -38,18 +38,16 @@ function TaskProto(props: TaskProps) {
   return (
     <div>
       {props.title}
-      <button disabled={isButtonDisable} onClick={onClickImportantHandler} style={buttonStyle}>
+      <button onClick={onClickImportantHandler} style={buttonStyle}>
         !
       </button>
-      <button disabled={isButtonDisable} onClick={onClickCompleteHandler} style={buttonCompletedStyle}>
+      <button onClick={onClickCompleteHandler} style={buttonCompletedStyle}>
         isDone
       </button>
-      <button disabled={isButtonDisable} onClick={onClickDeleteHandler} style={buttonDeleteStyle}>
+      <button onClick={onClickDeleteHandler} style={buttonDeleteStyle}>
         x
       </button>
-      <button disabled={isButtonDisable} onClick={onClickEditHandler}>
-        Edit
-      </button>
+      <button onClick={onClickEditHandler}>Edit</button>
     </div>
   );
 }

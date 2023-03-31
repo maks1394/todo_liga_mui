@@ -7,7 +7,7 @@ function TasksProto() {
   useEffect(() => {
     TasksStoreInstance.loadTasks();
     return () => {
-      TasksStoreInstance.setTaskStatusLoading();
+      TasksStoreInstance.unmountTasks();
     };
   }, []);
 
