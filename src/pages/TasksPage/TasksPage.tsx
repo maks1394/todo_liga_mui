@@ -6,7 +6,6 @@ import { Tasks } from 'modules/index';
 export const TasksPage = (props: TasksPageProps) => {
   return (
     <PageContainer>
-      <h1>Tasks</h1>
       <Tasks />
     </PageContainer>
   );

@@ -6,10 +6,14 @@ import { TasksStoreInstance } from '.';
 function TasksProto() {
   useEffect(() => {
     TasksStoreInstance.loadTasks();
+    return () => {
+      TasksStoreInstance.setTaskStatusLoading();
+    };
   }, []);
 
   return (
     <>
+      <h1>Tasks</h1>
       <TasksList />
     </>
   );

@@ -17,7 +17,12 @@ function EditTaskFormProto() {
     setTaskForEdit();
   }, []);
 
-  return <Loader isLoading={isLoading}>{JSON.stringify(EditTaskStoreInstance.defaultValues)}</Loader>;
+  return (
+    <>
+      <h1>Edit | Task {params?.taskId}</h1>
+      <Loader isLoading={isLoading}>{JSON.stringify(EditTaskStoreInstance.defaultValues)}</Loader>
+    </>
+  );
 }
 
 export const EditTaskForm = observer(EditTaskFormProto);

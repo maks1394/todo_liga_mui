@@ -6,7 +6,6 @@ import { EditTaskForm } from 'modules/index';
 export const EditTaskPage = (props: EditTaskPageProps) => {
   return (
     <PageContainer>
-      <h1>Edit</h1>
       <EditTaskForm />
     </PageContainer>
   );

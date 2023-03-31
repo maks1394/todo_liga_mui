@@ -17,6 +17,7 @@ class TasksStore {
       loadTasks: action,
       updateTask: action,
       deleteTask: action,
+      setTaskStatusLoading: action,
     });
   }
 
@@ -50,6 +51,9 @@ class TasksStore {
     } catch (err: unknown) {
       console.log(err);
     }
+  }
+  setTaskStatusLoading() {
+    this._tasksStatus = 'loading';
   }
   get tasks() {
     return this._tasks;
