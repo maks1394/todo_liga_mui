@@ -3,11 +3,11 @@ import { TaskEntity } from 'domains/index';
 import { mockAgentInstance } from '__mocks__/index';
 
 type PrivateFields = '_tasks' | '_tasksStatus';
-type TasksStatus = 'idle' | 'loading' | 'succeed' | 'error';
+type TasksStatus = 'loading' | 'succeed' | 'error';
 
 class TasksStore {
   private _tasks: TaskEntity[] = [];
-  private _tasksStatus: TasksStatus = 'idle';
+  private _tasksStatus: TasksStatus = 'loading';
   constructor() {
     makeObservable<this, PrivateFields>(this, {
       _tasks: observable,
