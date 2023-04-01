@@ -38,7 +38,7 @@ function TaskProto(props: TaskProps) {
   return (
     <div>
       {props.title}
-      <button onClick={onClickImportantHandler} style={buttonStyle}>
+      <button disabled={props.completed} onClick={onClickImportantHandler} style={buttonStyle}>
         !
       </button>
       <button onClick={onClickCompleteHandler} style={buttonCompletedStyle}>
