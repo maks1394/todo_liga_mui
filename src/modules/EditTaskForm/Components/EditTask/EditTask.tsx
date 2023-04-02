@@ -11,14 +11,24 @@ import { TextField } from 'components/TextField';
 import { Checkbox } from 'components/Checkbox';
 
 function EditTaskProto() {
-  const { handleSubmit, reset, control, setValue, getValues } = useForm<EditTaskEntity>({
+  const { handleSubmit, reset, control, setValue, getValues, formState, clearErrors } = useForm<EditTaskEntity>({
     defaultValues: EditTaskStoreInstance.defaultValues,
     resolver: yupResolver(validationSchema),
   });
   const navigate = useNavigate();
   const [isImportantDisable, setIsImportantDisable] = useState(getValues().completed);
-  const onTitleChange = (evt: ChangeEvent<HTMLInputElement>) => setValue('title', evt.target.value);
-  const onInfoChange = (evt: ChangeEvent<HTMLInputElement>) => setValue('info', evt.target.value);
+  const onTitleChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    if (formState.errors.title) {
+      clearErrors('title');
+    }
+    setValue('title', evt.target.value);
+  };
+  const onInfoChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    if (formState.errors.info) {
+      clearErrors('info');
+    }
+    setValue('info', evt.target.value);
+  };
   const onImportantChange = (evt: ChangeEvent<HTMLInputElement>) => setValue('important', evt.target.checked);
   const onCompletedChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setValue('completed', evt.target.checked);
