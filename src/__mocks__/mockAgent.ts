@@ -1,6 +1,6 @@
 import { data } from './data';
 import { sleep } from 'helpers/index';
-import { TaskEntity } from 'domains/index';
+import { AddTaskEntity, TaskEntity } from 'domains/index';
 
 class MockAgent {
   async loadTasks(): Promise<TaskEntity[]> {
@@ -24,6 +24,12 @@ class MockAgent {
     await sleep(1000);
     const index = data.findIndex((el) => el.taskId === taskId);
     data.splice(index, 1);
+  }
+  async addTask(newTask: AddTaskEntity): Promise<TaskEntity> {
+    await sleep(1000);
+    const task: TaskEntity = { ...newTask, taskId: String(Date.now()), completed: false };
+    data.push(task);
+    return task;
   }
   async getTask(taskId: string): Promise<TaskEntity> {
     await sleep(1000);

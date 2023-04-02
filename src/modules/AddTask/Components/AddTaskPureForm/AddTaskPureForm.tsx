@@ -1,24 +1,23 @@
 import { observer } from 'mobx-react';
+import { ChangeEvent } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import { ChangeEvent, MouseEventHandler, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { validationSchema } from './editTask.validation';
-import { EditTaskStoreInstance } from 'modules/index';
-import { EditTaskEntity } from 'domains/index';
+import { validationSchema } from './AddTaskPureForm.validation';
+import { AddTaskStoreInstance } from 'modules/index';
 import { TextField } from 'components/TextField';
 import { Checkbox } from 'components/Checkbox';
+import { AddTaskEntity } from 'domains/index';
 
-function EditTaskProto() {
-  const { handleSubmit, reset, control, setValue, getValues, formState, clearErrors } = useForm<EditTaskEntity>({
-    defaultValues: EditTaskStoreInstance.defaultValues,
+function AddTaskPureFormProto() {
+  const { handleSubmit, reset, control, setValue, formState, clearErrors } = useForm<AddTaskEntity>({
+    defaultValues: AddTaskStoreInstance.defaultValues,
     resolver: yupResolver(validationSchema),
   });
   const navigate = useNavigate();
-  const [isImportantDisable, setIsImportantDisable] = useState(getValues().completed);
   const onTitleChange = (evt: ChangeEvent<HTMLInputElement>) => {
     if (formState.errors.title) {
+      console.log('clear');
       clearErrors('title');
     }
     setValue('title', evt.target.value);
@@ -30,27 +29,15 @@ function EditTaskProto() {
     setValue('info', evt.target.value);
   };
   const onImportantChange = (evt: ChangeEvent<HTMLInputElement>) => setValue('important', evt.target.checked);
-  const onCompletedChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setValue('completed', evt.target.checked);
-    if (evt.target.checked) {
-      setIsImportantDisable(true);
-    } else {
-      setIsImportantDisable(false);
-    }
-  };
-  const onSubmit = async (data: EditTaskEntity) => {
+  const onSubmit = async (data: AddTaskEntity) => {
     console.log(data);
     try {
-      await EditTaskStoreInstance.editTask(data);
+      await AddTaskStoreInstance.addTask(data);
       navigate('/');
     } catch (error) {
       console.log(error);
     }
   };
-  const onEditClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    handleSubmit(onSubmit)();
-  };
-  // useEffect(() => {}, [getValues().completed]);
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -91,30 +78,15 @@ function EditTaskProto() {
           name="important"
           render={({ field, fieldState: { error } }) => (
             <div>
-              <Checkbox
-                label="is important"
-                checked={field.value}
-                onChange={onImportantChange}
-                disabled={isImportantDisable}
-              />
+              <Checkbox label="is important" checked={field.value} onChange={onImportantChange} />
               <div className="invalid-feedback">{error?.message}</div>
             </div>
           )}
         />
-        <Controller
-          control={control}
-          name="completed"
-          render={({ field, fieldState: { error } }) => (
-            <div>
-              <Checkbox label="is completed" checked={field.value} onChange={onCompletedChange} />
-              <div className="invalid-feedback">{error?.message}</div>
-            </div>
-          )}
-        />
-        <button>Edit task</button>
+        <button>Add task</button>
       </form>
     </>
   );
 }
 
-export const EditTask = observer(EditTaskProto);
+export const AddTaskPureForm = observer(AddTaskPureFormProto);

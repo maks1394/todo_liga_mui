@@ -12,3 +12,9 @@ export interface EditTaskEntity {
   important: boolean;
   completed: boolean;
 }
+
+export interface AddTaskEntity {
+  title: string;
+  info: string;
+  important: boolean;
+}
