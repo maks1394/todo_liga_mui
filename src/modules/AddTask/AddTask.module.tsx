@@ -6,7 +6,7 @@ import { Loader } from 'components/index';
 function AddTaskProto() {
   return (
     <>
-      <h1>Add Task</h1>
+      <h1>TODO LIST | Add Task</h1>
       <Loader isLoading={AddTaskStoreInstance.status === 'loading'}>
         <AddTaskPureForm />
       </Loader>

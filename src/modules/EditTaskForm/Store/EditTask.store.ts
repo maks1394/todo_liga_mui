@@ -45,7 +45,7 @@ class EditTaskStore {
         this._status = 'loading';
       });
       const task = await mockAgentInstance.updateTask(this._taskId, updatedTask);
-      this._status = 'loading'; // мы перенеаправляем на другую страницу, чтобы потом не было дерганий
+      // this._status = 'loading'; // мы перенеаправляем на другую страницу, чтобы потом не было дерганий
     } catch (error: unknown) {
       runInAction(() => {
         this._status = 'error';

@@ -18,3 +18,9 @@ export interface AddTaskEntity {
   info: string;
   important: boolean;
 }
+
+export interface StatsEntity {
+  total: number;
+  important: number;
+  done: number;
+}

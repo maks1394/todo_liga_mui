@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import { useEffect } from 'react';
 import { TasksList } from './Components/TasksList';
-import { TasksStoreInstance } from '.';
+import { TasksStats, TasksStoreInstance } from './index';
 
 function TasksProto() {
   useEffect(() => {
@@ -13,7 +13,8 @@ function TasksProto() {
 
   return (
     <>
-      <h1>Tasks</h1>
+      <h1>TODO LIST</h1>
+      <TasksStats />
       <TasksList />
     </>
   );

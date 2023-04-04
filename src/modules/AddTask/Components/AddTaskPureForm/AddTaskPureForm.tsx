@@ -16,8 +16,8 @@ function AddTaskPureFormProto() {
   });
   const navigate = useNavigate();
   const onTitleChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    console.log(formState.errors.title);
     if (formState.errors.title) {
-      console.log('clear');
       clearErrors('title');
     }
     setValue('title', evt.target.value);
@@ -83,7 +83,7 @@ function AddTaskPureFormProto() {
             </div>
           )}
         />
-        <button>Add task</button>
+        <button type="submit">Add task</button>
       </form>
     </>
   );

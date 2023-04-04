@@ -17,7 +17,7 @@ function EditTaskFormProto() {
 
   return (
     <>
-      <h1>Edit | Task {params?.taskId}</h1>
+      <h1>TODO LIST | Edit Task {params?.taskId}</h1>
       <Loader isLoading={EditTaskStoreInstance.status === 'loading'}>
         <EditTask />
       </Loader>
