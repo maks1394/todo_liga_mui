@@ -1,3 +1,5 @@
+import { FILTER_TYPES } from 'constants/index';
+
 export interface TaskEntity {
   taskId: string;
   title: string;
@@ -23,4 +25,11 @@ export interface StatsEntity {
   total: number;
   important: number;
   done: number;
+}
+
+export type FilterType = typeof FILTER_TYPES[keyof typeof FILTER_TYPES];
+
+export interface SearchFormEntity {
+  searchValue: string;
+  filter: FilterType;
 }
