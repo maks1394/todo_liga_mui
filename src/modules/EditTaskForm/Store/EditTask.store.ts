@@ -47,7 +47,6 @@ class EditTaskStore {
       });
       const taskRequest: UpdateTaskRequest = mapToExternalUpdateTaskRequest(updatedTask);
       await TasksAgentInstance.updateTask(this._taskId, taskRequest);
-      // this._status = 'loading'; // мы перенеаправляем на другую страницу, чтобы потом не было дерганий
     } catch (error: unknown) {
       runInAction(() => {
         this._status = 'error';

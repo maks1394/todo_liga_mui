@@ -1,0 +1,21 @@
+.taskList {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.taskList__link{
+  text-decoration: none;
+}
+.taskList__button {
+  display: block;
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+  text-decoration: none;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  margin-top: 10px;
+  border-radius: 4px;
+}

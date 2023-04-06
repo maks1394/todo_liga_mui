@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react';
 import { Controller, useForm } from 'react-hook-form';
+import { useEffect } from 'react';
 import { SearchFilter } from '../SearchFilter';
 import { DEFAULT_VALUES } from './TasksSearchForm.constants';
 import { FilterType, SearchFormEntity } from 'domains/index';
@@ -11,7 +12,9 @@ function TasksSearchFormProto() {
   const { handleSubmit, reset, control, setValue, formState, clearErrors } = useForm<SearchFormEntity>({
     defaultValues: DEFAULT_VALUES,
   });
-
+  useEffect(() => {
+    reset(TasksStoreInstance.searchForm);
+  }, []);
   const onSubmit = async (data: SearchFormEntity) => {
     console.log(data);
     await TasksStoreInstance.loadTasks(data);

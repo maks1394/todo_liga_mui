@@ -8,11 +8,13 @@ class TasksStore {
   private _tasks: TaskEntity[] = [];
   private _tasksStatus: TasksStatus = 'loading';
   private _stats: StatsType = { total: 0, important: 0, done: 0 };
+  private _searchForm: SearchFormEntity | undefined = undefined;
   constructor() {
     makeObservable<this, PrivateFields>(this, {
       _tasks: observable,
       _tasksStatus: observable,
       _stats: observable,
+      _searchForm: observable,
       tasks: computed,
       tasksStatus: computed,
       stats: computed,
@@ -31,6 +33,7 @@ class TasksStore {
       runInAction(() => {
         this._tasks = tasks;
         this._stats.total = this._tasks.length;
+        this._searchForm = params;
         [this._stats.important, this._stats.done] = this._tasks.reduce(
           (a, b) => {
             if (b.important) {
@@ -60,7 +63,7 @@ class TasksStore {
     } catch (err: unknown) {
       console.log(err, 'from update Task');
     } finally {
-      await this.loadTasks();
+      await this.loadTasks(this._searchForm);
     }
   }
 
@@ -70,7 +73,7 @@ class TasksStore {
         this._tasksStatus = 'loading';
       });
       await TasksAgentInstance.deleteTask(taskId);
-      await this.loadTasks();
+      await this.loadTasks(this._searchForm);
     } catch (err: unknown) {
       console.log(err);
     }
@@ -86,6 +89,9 @@ class TasksStore {
   }
   get stats() {
     return this._stats;
+  }
+  get searchForm() {
+    return this._searchForm;
   }
 }
 

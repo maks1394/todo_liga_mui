@@ -5,7 +5,7 @@ import { TasksSearchForm, TasksStats, TasksStoreInstance } from './index';
 
 function TasksProto() {
   useEffect(() => {
-    TasksStoreInstance.loadTasks();
+    TasksStoreInstance.loadTasks(TasksStoreInstance.searchForm);
     return () => {
       TasksStoreInstance.unmountTasks();
     };
