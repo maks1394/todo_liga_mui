@@ -1,6 +1,7 @@
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
-import { mockAgentInstance } from '__mocks__/index';
 import { AddTaskEntity } from 'domains/index';
+import { AddTaskRequest, TasksAgentInstance } from 'http/index';
+import { mapToExternalAddTaskRequest } from 'helpers/index';
 
 type PrivateFields = '_defaultValues' | '_status';
 type StatusType = 'loading' | 'succeed' | 'error';
@@ -22,7 +23,8 @@ class AddTaskStore {
       runInAction(() => {
         this._status = 'loading';
       });
-      await mockAgentInstance.addTask(newTask);
+      const taskRequest: AddTaskRequest = mapToExternalAddTaskRequest(newTask);
+      await TasksAgentInstance.addTask(taskRequest);
       runInAction(() => {
         this._status = 'succeed';
       });

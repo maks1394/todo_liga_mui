@@ -9,7 +9,7 @@ function TaskProto(props: TaskProps) {
   const navigate = useNavigate();
   // const [isButtonDisable, setIsButtonDisable] = useState(false);
   const buttonStyle = {
-    backgroundColor: `${props.important ? 'red' : 'green'}`,
+    backgroundColor: `${props.important ? 'red' : 'gray'}`,
   };
   const buttonDeleteStyle = {
     backgroundColor: `brown`,

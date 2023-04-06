@@ -11,6 +11,7 @@ import { BasicAgent } from './Basic.agent';
 
 export class TasksAgent extends BasicAgent {
   constructor() {
+    console.log(process.env.APP_API as string);
     super(process.env.APP_API as string);
   }
   async loadTasks(params?: GetAllTasksQuery): Promise<GetAllTasksResponse> {

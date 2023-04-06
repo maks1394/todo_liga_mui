@@ -1,19 +1,57 @@
 import { observer } from 'mobx-react';
-import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { SearchFilter } from '../SearchFilter';
-import { FilterType } from 'domains/Task.entity';
+import { DEFAULT_VALUES } from './TasksSearchForm.constants';
+import { FilterType, SearchFormEntity } from 'domains/index';
+import { SearchInput } from 'components/index';
+import './TasksSearchForm.css';
+import { TasksStoreInstance } from 'modules/index';
 
 function TasksSearchFormProto() {
-  // useEffect(() => {}, []);
+  const { handleSubmit, reset, control, setValue, formState, clearErrors } = useForm<SearchFormEntity>({
+    defaultValues: DEFAULT_VALUES,
+  });
+
+  const onSubmit = async (data: SearchFormEntity) => {
+    console.log(data);
+    await TasksStoreInstance.loadTasks(data);
+    try {
+      // await AddTaskStoreInstance.addTask(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const onSearchInputChange = (text: string) => {
+    setValue('searchValue', text);
+  };
+
+  const onResetHandler = () => {
+    setValue('searchValue', '');
+  };
+
+  const onChangeFilterHandler = (filter: FilterType) => {
+    setValue('filter', filter);
+  };
 
   return (
     <>
-      <SearchFilter
-        filter={'All'}
-        onChange={function (filter: FilterType): void {
-          console.log('click');
-        }}
-      />
+      <form className="tasksSearchForm" onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          control={control}
+          name="searchValue"
+          render={({ field, fieldState: { error } }) => (
+            <SearchInput value={field.value} onChange={onSearchInputChange} onReset={onResetHandler} />
+          )}
+        />
+        <Controller
+          control={control}
+          name="filter"
+          render={({ field, fieldState: { error } }) => (
+            <SearchFilter filter={field.value} onChange={onChangeFilterHandler} />
+          )}
+        />
+        <button type="submit">Find</button>
+      </form>
     </>
   );
 }

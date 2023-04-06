@@ -6,7 +6,8 @@ import { FILTER_TYPES } from 'constants/index';
 import './SearchFilter.css';
 
 export const SearchFilter = (props: SearchFilterProps) => {
-  const onClickHandler = (filter: FilterType) => () => {
+  const onClickHandler = (filter: FilterType) => (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     props.onChange(filter);
   };
   return (

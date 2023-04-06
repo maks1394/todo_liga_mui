@@ -1,13 +1,13 @@
 import { data } from './data';
 import { sleep } from 'helpers/index';
-import { AddTaskEntity, TaskEntity } from 'domains/index';
+import { AddTaskEntity, EditTaskEntity, TaskEntity } from 'domains/index';
 
 class MockAgent {
   async loadTasks(): Promise<TaskEntity[]> {
     await sleep(1000);
     return data;
   }
-  async updateTask(taskId: string, updatedTask: Partial<Omit<TaskEntity, 'id'>>): Promise<TaskEntity> {
+  async updateTask(taskId: string, updatedTask: Partial<EditTaskEntity>): Promise<TaskEntity> {
     await sleep(1000);
     const taskForUpdate = data.find((el) => el.taskId === taskId);
     const index = data.findIndex((el) => el.taskId === taskId);

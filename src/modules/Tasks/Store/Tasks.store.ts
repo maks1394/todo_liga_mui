@@ -1,7 +1,8 @@
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
 import { PrivateFields, StatsType, TasksStatus } from './Tasks.types';
-import { TaskEntity } from 'domains/index';
-import { mockAgentInstance } from '__mocks__/index';
+import { EditTaskEntity, SearchFormEntity, TaskEntity } from 'domains/index';
+import { TasksAgentInstance } from 'http/index';
+import { mapToExternalGetTasksQuery, mapToExternalUpdateTaskRequest, mapToInternalTasks } from 'helpers/index';
 
 class TasksStore {
   private _tasks: TaskEntity[] = [];
@@ -21,10 +22,12 @@ class TasksStore {
       unmountTasks: action,
     });
   }
-  async loadTasks() {
+  async loadTasks(params?: SearchFormEntity) {
     this._tasksStatus = 'loading';
     try {
-      const tasks: TaskEntity[] = await mockAgentInstance.loadTasks();
+      const tasks: TaskEntity[] = mapToInternalTasks(
+        await TasksAgentInstance.loadTasks(mapToExternalGetTasksQuery(params))
+      );
       runInAction(() => {
         this._tasks = tasks;
         this._stats.total = this._tasks.length;
@@ -48,15 +51,16 @@ class TasksStore {
     }
   }
 
-  async updateTask(taskId: string, newTaskForUpdate: Partial<Omit<TaskEntity, 'id'>>): Promise<void> {
+  async updateTask(taskId: string, newTaskForUpdate: Partial<EditTaskEntity>): Promise<void> {
     try {
       runInAction(() => {
         this._tasksStatus = 'loading';
       });
-      await mockAgentInstance.updateTask(taskId, newTaskForUpdate);
-      await this.loadTasks();
+      await TasksAgentInstance.updateTask(taskId, mapToExternalUpdateTaskRequest(newTaskForUpdate));
     } catch (err: unknown) {
-      console.log(err);
+      console.log(err, 'from update Task');
+    } finally {
+      await this.loadTasks();
     }
   }
 
@@ -65,7 +69,7 @@ class TasksStore {
       runInAction(() => {
         this._tasksStatus = 'loading';
       });
-      await mockAgentInstance.deleteTask(taskId);
+      await TasksAgentInstance.deleteTask(taskId);
       await this.loadTasks();
     } catch (err: unknown) {
       console.log(err);

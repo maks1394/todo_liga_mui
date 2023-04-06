@@ -1,6 +1,7 @@
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
-import { EditTaskEntity, TaskEntity } from 'domains/index';
-import { mockAgentInstance } from '__mocks__/index';
+import { EditTaskEntity } from 'domains/index';
+import { TasksAgentInstance, UpdateTaskRequest } from 'http/index';
+import { mapToExternalUpdateTaskRequest, mapToInternalTask } from 'helpers/index';
 
 type PrivateFields = '_defaultValues' | '_taskId' | '_status';
 type StatusType = 'loading' | 'succeed' | 'error';
@@ -25,7 +26,7 @@ class EditTaskStore {
       runInAction(() => {
         this._status = 'loading';
       });
-      const task = await mockAgentInstance.getTask(taskId);
+      const task = mapToInternalTask(await TasksAgentInstance.getTask(taskId));
       runInAction(() => {
         const { taskId, ...rest } = task;
         this._defaultValues = rest;
@@ -39,12 +40,13 @@ class EditTaskStore {
       });
     }
   }
-  async editTask(updatedTask: Partial<Omit<TaskEntity, 'id'>>) {
+  async editTask(updatedTask: Partial<EditTaskEntity>) {
     try {
       runInAction(() => {
         this._status = 'loading';
       });
-      const task = await mockAgentInstance.updateTask(this._taskId, updatedTask);
+      const taskRequest: UpdateTaskRequest = mapToExternalUpdateTaskRequest(updatedTask);
+      await TasksAgentInstance.updateTask(this._taskId, taskRequest);
       // this._status = 'loading'; // мы перенеаправляем на другую страницу, чтобы потом не было дерганий
     } catch (error: unknown) {
       runInAction(() => {
