@@ -12,10 +12,14 @@ function TasksListProto() {
     <>
       <div className="taskList">
         <Loader isLoading={TasksStoreInstance.tasksStatus === 'loading'}>
-          {TasksStoreInstance.tasks.length > 0 ? (
-            TasksStoreInstance.tasks.map((el) => <Task key={el.taskId} {...el} />)
+          {TasksStoreInstance.tasksStatus === 'succeed' ? (
+            TasksStoreInstance.tasks.length > 0 ? (
+              TasksStoreInstance.tasks.map((el) => <Task key={el.taskId} {...el} />)
+            ) : (
+              <div>Tasks list is empty</div>
+            )
           ) : (
-            <div>Tasks list is empty</div>
+            <div>Some error occurred</div>
           )}
         </Loader>
       </div>

@@ -45,7 +45,7 @@ function EditTaskProto() {
       await EditTaskStoreInstance.editTask(data);
       navigate('/');
     } catch (error) {
-      console.log(error);
+      EditTaskStoreInstance.pushError((error as Error).message);
     }
   };
   const onEditClick = (e: React.MouseEvent<HTMLButtonElement>) => {

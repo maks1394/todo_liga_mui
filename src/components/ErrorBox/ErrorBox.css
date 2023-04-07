@@ -1,0 +1,21 @@
+.error-box {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+  opacity: 0;
+  transition: max-height 0.3s ease-out, padding 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.error-box--visible {
+  max-height: 100px;
+  padding: 10px 20px;
+  opacity: 1;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  transition: max-height 0.3s ease-in, padding 0.3s ease-in, opacity 0.3s ease-in;
+}

@@ -36,7 +36,7 @@ function AddTaskPureFormProto() {
       await AddTaskStoreInstance.addTask(data);
       navigate('/');
     } catch (error) {
-      console.log(error);
+      AddTaskStoreInstance.pushError((error as Error).message);
     }
   };
   return (

@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { EditTask, EditTaskStoreInstance } from './index';
-import { Loader } from 'components/index';
+import { ErrorBox, Loader } from 'components/index';
 
 function EditTaskFormProto() {
   const params = useParams<'taskId'>();
@@ -21,6 +21,7 @@ function EditTaskFormProto() {
       <Loader isLoading={EditTaskStoreInstance.status === 'loading'}>
         <EditTask />
       </Loader>
+      <ErrorBox error={EditTaskStoreInstance.error} />
     </>
   );
 }

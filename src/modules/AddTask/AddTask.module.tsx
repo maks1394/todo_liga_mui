@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react';
-import { useEffect } from 'react';
 import { AddTaskPureForm, AddTaskStoreInstance } from './index';
-import { Loader } from 'components/index';
+import { ErrorBox, Loader } from 'components/index';
 
 function AddTaskProto() {
   return (
@@ -10,6 +9,7 @@ function AddTaskProto() {
       <Loader isLoading={AddTaskStoreInstance.status === 'loading'}>
         <AddTaskPureForm />
       </Loader>
+      <ErrorBox error={AddTaskStoreInstance.error} />
     </>
   );
 }

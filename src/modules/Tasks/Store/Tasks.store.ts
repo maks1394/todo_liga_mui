@@ -1,4 +1,5 @@
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
+import axios from 'axios';
 import { PrivateFields, StatsType, TasksStatus } from './Tasks.types';
 import { EditTaskEntity, SearchFormEntity, TaskEntity } from 'domains/index';
 import { TasksAgentInstance } from 'http/index';
@@ -9,19 +10,23 @@ class TasksStore {
   private _tasksStatus: TasksStatus = 'loading';
   private _stats: StatsType = { total: 0, important: 0, done: 0 };
   private _searchForm: SearchFormEntity | undefined = undefined;
+  private _error: string | null = null;
   constructor() {
     makeObservable<this, PrivateFields>(this, {
       _tasks: observable,
       _tasksStatus: observable,
       _stats: observable,
       _searchForm: observable,
+      _error: observable,
       tasks: computed,
       tasksStatus: computed,
       stats: computed,
+      error: computed,
       loadTasks: action,
       updateTask: action,
       deleteTask: action,
       unmountTasks: action,
+      _pushError: action,
     });
   }
   async loadTasks(params?: SearchFormEntity) {
@@ -49,6 +54,11 @@ class TasksStore {
         this._tasksStatus = 'succeed';
       });
     } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        this._pushError(err.message);
+      } else {
+        this._pushError('Возникла ошибка при загрузке задач');
+      }
       console.log(err);
       this._tasksStatus = 'error';
     }
@@ -62,6 +72,11 @@ class TasksStore {
       await TasksAgentInstance.updateTask(taskId, mapToExternalUpdateTaskRequest(newTaskForUpdate));
     } catch (err: unknown) {
       console.log(err, 'from update Task');
+      if (axios.isAxiosError(err)) {
+        this._pushError(err.message);
+      } else {
+        this._pushError('Возникла ошибка при обновлении задачи');
+      }
     } finally {
       await this.loadTasks(this._searchForm);
     }
@@ -73,9 +88,22 @@ class TasksStore {
         this._tasksStatus = 'loading';
       });
       await TasksAgentInstance.deleteTask(taskId);
-      await this.loadTasks(this._searchForm);
     } catch (err: unknown) {
-      console.log(err);
+      if (axios.isAxiosError(err)) {
+        this._pushError(err.message);
+      } else {
+        this._pushError('Возникла ошибка при удалении задачи');
+      }
+    } finally {
+      await this.loadTasks(this._searchForm);
+    }
+  }
+  private _pushError(error: string) {
+    if (!this._error) {
+      this._error = error;
+      setTimeout(() => {
+        this._error = null;
+      }, 2000);
     }
   }
   unmountTasks() {
@@ -92,6 +120,9 @@ class TasksStore {
   }
   get searchForm() {
     return this._searchForm;
+  }
+  get error() {
+    return this._error;
   }
 }
 

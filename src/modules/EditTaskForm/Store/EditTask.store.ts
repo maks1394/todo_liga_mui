@@ -1,24 +1,29 @@
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
+import axios from 'axios';
 import { EditTaskEntity } from 'domains/index';
 import { TasksAgentInstance, UpdateTaskRequest } from 'http/index';
 import { mapToExternalUpdateTaskRequest, mapToInternalTask } from 'helpers/index';
 
-type PrivateFields = '_defaultValues' | '_taskId' | '_status';
+type PrivateFields = '_defaultValues' | '_taskId' | '_status' | '_error';
 type StatusType = 'loading' | 'succeed' | 'error';
 
 class EditTaskStore {
   private _defaultValues: EditTaskEntity = { info: '', title: '', completed: false, important: false };
   private _taskId = '';
   private _status: StatusType = 'loading';
+  private _error: string | null = null;
   constructor() {
     makeObservable<this, PrivateFields>(this, {
       _defaultValues: observable,
       _taskId: observable,
       _status: observable,
+      _error: observable,
       defaultValues: computed,
       taskId: computed,
       status: computed,
+      error: computed,
       setTaskForEdit: action,
+      pushError: action,
     });
   }
   async setTaskForEdit(taskId: string) {
@@ -34,7 +39,11 @@ class EditTaskStore {
         this._status = 'succeed';
       });
     } catch (error: unknown) {
-      console.log(error);
+      if (axios.isAxiosError(error)) {
+        this.pushError(error.message);
+      } else {
+        this.pushError('Возникла ошибка при загрузке данных задачи');
+      }
       runInAction(() => {
         this._status = 'error';
       });
@@ -54,6 +63,14 @@ class EditTaskStore {
       throw new Error('Error from edit Task');
     }
   }
+  pushError(error: string) {
+    if (!this._error) {
+      this._error = error;
+      setTimeout(() => {
+        this._error = null;
+      }, 2000);
+    }
+  }
   get defaultValues() {
     return this._defaultValues;
   }
@@ -62,6 +79,9 @@ class EditTaskStore {
   }
   get status() {
     return this._status;
+  }
+  get error() {
+    return this._error;
   }
 }
 
