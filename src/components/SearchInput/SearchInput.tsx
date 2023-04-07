@@ -1,8 +1,11 @@
 import React, { ChangeEventHandler, MouseEvent } from 'react';
-import './SearchInput.css';
+import ClearIcon from '@mui/icons-material/Clear';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
 import { SearchInputProps } from './SearchInput.types';
 
-export function SearchInput({ onChange, value, onReset }: SearchInputProps) {
+export function SearchInput({ onChange, value, onReset, className }: SearchInputProps) {
   const onSearchInputChange: ChangeEventHandler<HTMLInputElement> = (evt) => onChange(evt.target.value);
 
   const onResetBtnClick = (evt: MouseEvent<HTMLButtonElement>) => {
@@ -11,11 +14,22 @@ export function SearchInput({ onChange, value, onReset }: SearchInputProps) {
   };
 
   return (
-    <div className="search-panel">
-      <input className="form-control search-input" placeholder="search" onChange={onSearchInputChange} value={value} />
-      <button className="close" onClick={onResetBtnClick}>
-        <i className="fa fa-close"></i>
-      </button>
-    </div>
+    <OutlinedInput
+      id=""
+      type={'text'}
+      className={className}
+      value={value}
+      onChange={onSearchInputChange}
+      placeholder="Search"
+      endAdornment={
+        <InputAdornment position="end">
+          <IconButton aria-label="toggle password visibility" onClick={onResetBtnClick} edge="end">
+            <ClearIcon />
+          </IconButton>
+        </InputAdornment>
+      }
+      size="small"
+      fullWidth
+    />
   );
 }

@@ -1,9 +1,9 @@
 import React from 'react';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 import { SearchFilterProps } from './SearchFilter.types';
-import { CLASS_NAMES } from './SearchFilter.constants';
 import { FilterType } from 'domains/index';
 import { FILTER_TYPES } from 'constants/index';
-import './SearchFilter.css';
 
 export const SearchFilter = (props: SearchFilterProps) => {
   const onClickHandler = (filter: FilterType) => (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -11,27 +11,27 @@ export const SearchFilter = (props: SearchFilterProps) => {
     props.onChange(filter);
   };
   return (
-    <div className={CLASS_NAMES.search}>
-      <button
-        className={CLASS_NAMES.button + (props.filter === FILTER_TYPES.all ? ' ' + CLASS_NAMES.buttonActive : '')}
-        onClick={onClickHandler(FILTER_TYPES.all)}>
+    <ButtonGroup fullWidth color="secondary">
+      <Button
+        onClick={onClickHandler(FILTER_TYPES.all)}
+        variant={props.filter === FILTER_TYPES.all ? 'contained' : 'outlined'}>
         all
-      </button>
-      <button
-        className={CLASS_NAMES.button + (props.filter === FILTER_TYPES.active ? ' ' + CLASS_NAMES.buttonActive : '')}
-        onClick={onClickHandler(FILTER_TYPES.active)}>
+      </Button>
+      <Button
+        onClick={onClickHandler(FILTER_TYPES.active)}
+        variant={props.filter === FILTER_TYPES.active ? 'contained' : 'outlined'}>
         active
-      </button>
-      <button
-        className={CLASS_NAMES.button + (props.filter === FILTER_TYPES.done ? ' ' + CLASS_NAMES.buttonActive : '')}
-        onClick={onClickHandler(FILTER_TYPES.done)}>
+      </Button>
+      <Button
+        onClick={onClickHandler(FILTER_TYPES.done)}
+        variant={props.filter === FILTER_TYPES.done ? 'contained' : 'outlined'}>
         done
-      </button>
-      <button
-        className={CLASS_NAMES.button + (props.filter === FILTER_TYPES.important ? ' ' + CLASS_NAMES.buttonActive : '')}
-        onClick={onClickHandler(FILTER_TYPES.important)}>
+      </Button>
+      <Button
+        onClick={onClickHandler(FILTER_TYPES.important)}
+        variant={props.filter === FILTER_TYPES.important ? 'contained' : 'outlined'}>
         important
-      </button>
-    </div>
+      </Button>
+    </ButtonGroup>
   );
 };

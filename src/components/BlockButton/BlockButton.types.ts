@@ -1,5 +1,3 @@
+import { ButtonProps } from '@mui/material/Button';
 import React from 'react';
-export type BlockButtonProps = React.DetailedHTMLProps<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
->;
+export type BlockButtonProps = ButtonProps;
