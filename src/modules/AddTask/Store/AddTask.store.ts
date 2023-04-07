@@ -24,7 +24,8 @@ class AddTaskStore {
         this._status = 'loading';
       });
       const taskRequest: AddTaskRequest = mapToExternalAddTaskRequest(newTask);
-      await TasksAgentInstance.addTask(taskRequest);
+      const taskResponse = await TasksAgentInstance.addTask(taskRequest);
+      await TasksAgentInstance.updateTask(String(taskResponse.id), { ...taskResponse, isCompleted: false });
       runInAction(() => {
         this._status = 'succeed';
       });

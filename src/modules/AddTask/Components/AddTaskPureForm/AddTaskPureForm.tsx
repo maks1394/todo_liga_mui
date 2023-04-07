@@ -8,6 +8,7 @@ import { AddTaskStoreInstance } from 'modules/index';
 import { TextField } from 'components/TextField';
 import { Checkbox } from 'components/Checkbox';
 import { AddTaskEntity } from 'domains/index';
+import { BlockButton } from 'components/index';
 
 function AddTaskPureFormProto() {
   const { handleSubmit, reset, control, setValue, formState, clearErrors } = useForm<AddTaskEntity>({
@@ -83,7 +84,9 @@ function AddTaskPureFormProto() {
             </div>
           )}
         />
-        <button type="submit">Add task</button>
+        <BlockButton disabled={AddTaskStoreInstance.status === 'loading'} type="submit">
+          Add task
+        </BlockButton>
       </form>
     </>
   );

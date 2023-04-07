@@ -9,6 +9,7 @@ import { EditTaskStoreInstance } from 'modules/index';
 import { EditTaskEntity } from 'domains/index';
 import { TextField } from 'components/TextField';
 import { Checkbox } from 'components/Checkbox';
+import { BlockButton } from 'components/index';
 
 function EditTaskProto() {
   const { handleSubmit, reset, control, setValue, getValues, formState, clearErrors } = useForm<EditTaskEntity>({
@@ -111,7 +112,7 @@ function EditTaskProto() {
             </div>
           )}
         />
-        <button>Edit task</button>
+        <BlockButton>Edit task</BlockButton>
       </form>
     </>
   );

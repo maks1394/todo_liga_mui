@@ -5,19 +5,24 @@ import { Loader } from 'components/Loader';
 import { TasksStoreInstance } from 'modules/index';
 import { Pages } from 'constants/index';
 import './TaskList.css';
+import { BlockButton } from 'components/index';
 
 function TasksListProto() {
   return (
-    <Loader isLoading={TasksStoreInstance.tasksStatus === 'loading'}>
+    <>
       <div className="taskList">
-        {TasksStoreInstance.tasks.map((el) => (
-          <Task key={el.taskId} {...el} />
-        ))}
+        <Loader isLoading={TasksStoreInstance.tasksStatus === 'loading'}>
+          {TasksStoreInstance.tasks.length > 0 ? (
+            TasksStoreInstance.tasks.map((el) => <Task key={el.taskId} {...el} />)
+          ) : (
+            <div>Tasks list is empty</div>
+          )}
+        </Loader>
       </div>
       <NavLink className="taskList__link" to={Pages.addTaskPage}>
-        <button className="taskList__button">Add task</button>
+        <BlockButton className="taskList__BlockButton">Add task</BlockButton>
       </NavLink>
-    </Loader>
+    </>
   );
 }
 

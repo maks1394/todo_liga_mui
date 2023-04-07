@@ -53,7 +53,9 @@ function TasksSearchFormProto() {
             <SearchFilter filter={field.value} onChange={onChangeFilterHandler} />
           )}
         />
-        <button type="submit">Find</button>
+        <button className="tasksSearchForm__buttonFind" type="submit">
+          Find
+        </button>
       </form>
     </>
   );
