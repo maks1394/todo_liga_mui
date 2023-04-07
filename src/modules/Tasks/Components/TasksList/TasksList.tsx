@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Task } from '../Task';
 import { Loader } from 'components/Loader';
 import { TasksStoreInstance } from 'modules/index';

@@ -59,7 +59,6 @@ class TasksStore {
       } else {
         this._pushError('Возникла ошибка при загрузке задач');
       }
-      console.log(err);
       this._tasksStatus = 'error';
     }
   }
@@ -71,7 +70,6 @@ class TasksStore {
       });
       await TasksAgentInstance.updateTask(taskId, mapToExternalUpdateTaskRequest(newTaskForUpdate));
     } catch (err: unknown) {
-      console.log(err, 'from update Task');
       if (axios.isAxiosError(err)) {
         this._pushError(err.message);
       } else {

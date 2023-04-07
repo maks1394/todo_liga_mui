@@ -11,13 +11,12 @@ import { AddTaskEntity } from 'domains/index';
 import { BlockButton } from 'components/index';
 
 function AddTaskPureFormProto() {
-  const { handleSubmit, reset, control, setValue, formState, clearErrors } = useForm<AddTaskEntity>({
+  const { handleSubmit, control, setValue, formState, clearErrors } = useForm<AddTaskEntity>({
     defaultValues: AddTaskStoreInstance.defaultValues,
     resolver: yupResolver(validationSchema),
   });
   const navigate = useNavigate();
   const onTitleChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    console.log(formState.errors.title);
     if (formState.errors.title) {
       clearErrors('title');
     }
@@ -31,7 +30,6 @@ function AddTaskPureFormProto() {
   };
   const onImportantChange = (evt: ChangeEvent<HTMLInputElement>) => setValue('important', evt.target.checked);
   const onSubmit = async (data: AddTaskEntity) => {
-    console.log(data);
     try {
       await AddTaskStoreInstance.addTask(data);
       navigate('/');

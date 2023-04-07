@@ -1,8 +1,7 @@
 import { observer } from 'mobx-react';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import { ChangeEvent, MouseEventHandler, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { validationSchema } from './editTask.validation';
 import { EditTaskStoreInstance } from 'modules/index';
@@ -12,7 +11,7 @@ import { Checkbox } from 'components/Checkbox';
 import { BlockButton } from 'components/index';
 
 function EditTaskProto() {
-  const { handleSubmit, reset, control, setValue, getValues, formState, clearErrors } = useForm<EditTaskEntity>({
+  const { handleSubmit, control, setValue, getValues, formState, clearErrors } = useForm<EditTaskEntity>({
     defaultValues: EditTaskStoreInstance.defaultValues,
     resolver: yupResolver(validationSchema),
   });
@@ -40,16 +39,12 @@ function EditTaskProto() {
     }
   };
   const onSubmit = async (data: EditTaskEntity) => {
-    console.log(data);
     try {
       await EditTaskStoreInstance.editTask(data);
       navigate('/');
     } catch (error) {
       EditTaskStoreInstance.pushError((error as Error).message);
     }
-  };
-  const onEditClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    handleSubmit(onSubmit)();
   };
   // useEffect(() => {}, [getValues().completed]);
   return (
