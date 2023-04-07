@@ -1,10 +1,18 @@
 import { observer } from 'mobx-react';
 import { CSSProperties, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
+import DoneIcon from '@mui/icons-material/Done';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import { GreyButton, SmallButton, StyledStack, StyledTypography } from './Task.styles';
 import { TaskProps } from './Task.types';
 import { Pages } from 'constants/index';
 import { TasksStoreInstance } from 'modules/index';
-import './Task.css';
 
 function TaskProto(props: TaskProps) {
   const navigate = useNavigate();
@@ -20,40 +28,38 @@ function TaskProto(props: TaskProps) {
   const onClickEditHandler = () => {
     navigate(`${Pages.editBase}${props.taskId}`);
   };
-  const classNameForText =
-    'task__text' +
-    (props.completed ? ' ' + 'task__text_completed' : '') +
-    (props.important ? ' ' + 'task__text_important' : '');
   return (
-    <div className="taskList__task task">
-      <div className="task__top">
-        <p className={classNameForText}>{props.title}</p>
-        <div className="task__buttons">
-          <button
-            className={
-              'task__button task__button_type_important' + (props.important ? ' ' + 'task__button_active' : '')
-            }
+    <StyledStack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={0.5}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <StyledTypography completed={props.completed} important={props.important} variant="body1">
+          {props.title}
+        </StyledTypography>
+        <Stack direction="row" spacing={{ xs: 1, sm: 2, md: 4 }}>
+          <SmallButton
+            variant={`${props.important ? 'contained' : 'outlined'}`}
             disabled={props.completed}
-            onClick={onClickImportantHandler}>
-            <i className="fa fa-exclamation"></i>
-          </button>
-          <button
-            className={
-              'task__button task__button_type_completed' + (props.completed ? ' ' + 'task__button_active' : '')
-            }
-            onClick={onClickCompleteHandler}>
-            <i className="fa fa-check"></i>
-          </button>
-          <button className={'task__button task__button_type_delete'} onClick={onClickDeleteHandler}>
-            <i className="fa fa-trash-o"></i>
-          </button>
-          <button className="task__button task__button_type_edit" onClick={onClickEditHandler}>
-            <i className="fa fa-pencil"></i>
-          </button>
-        </div>
-      </div>
-      <p className={classNameForText}>{props.info}</p>
-    </div>
+            onClick={onClickImportantHandler}
+            color="success">
+            <PriorityHighIcon fontSize="small" />
+          </SmallButton>
+          <SmallButton
+            variant={`${props.completed ? 'contained' : 'outlined'}`}
+            onClick={onClickCompleteHandler}
+            color={'error'}>
+            <DoneIcon fontSize="small" />
+          </SmallButton>
+          <SmallButton variant="outlined" onClick={onClickDeleteHandler} color={'error'}>
+            <DeleteIcon fontSize="small" />
+          </SmallButton>
+          <GreyButton variant="outlined" onClick={onClickEditHandler}>
+            <EditIcon fontSize="small" />
+          </GreyButton>
+        </Stack>
+      </Stack>
+      <StyledTypography completed={props.completed} important={props.important} variant="body1">
+        {props.info}
+      </StyledTypography>
+    </StyledStack>
   );
 }
 

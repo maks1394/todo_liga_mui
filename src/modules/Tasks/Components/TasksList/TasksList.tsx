@@ -1,31 +1,41 @@
 import { observer } from 'mobx-react';
 import { NavLink } from 'react-router-dom';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
 import { Task } from '../Task';
+import { StyledList, StyledListItem, StyledStack } from './TasksList.styles';
 import { Loader } from 'components/Loader';
 import { TasksStoreInstance } from 'modules/index';
 import { Pages } from 'constants/index';
-import './TaskList.css';
 import { BlockButton } from 'components/index';
 
 function TasksListProto() {
   return (
     <>
-      <div className="taskList">
+      <StyledStack direction="column" justifyContent="center" alignItems="center" spacing={0}>
         <Loader isLoading={TasksStoreInstance.tasksStatus === 'loading'}>
           {TasksStoreInstance.tasksStatus === 'succeed' ? (
             TasksStoreInstance.tasks.length > 0 ? (
-              TasksStoreInstance.tasks.map((el) => <Task key={el.taskId} {...el} />)
+              <StyledList>
+                {TasksStoreInstance.tasks.map((el) => {
+                  return (
+                    <StyledListItem key={el.taskId}>
+                      <Task {...el} />
+                    </StyledListItem>
+                  );
+                })}
+              </StyledList>
             ) : (
-              <div>Tasks list is empty</div>
+              <Typography variant="body1">Tasks list is empty</Typography>
             )
           ) : (
-            <div>Some error occurred</div>
+            <Typography variant="body1">Some error occurred</Typography>
           )}
         </Loader>
-      </div>
-      <NavLink className="taskList__link" to={Pages.addTaskPage}>
-        <BlockButton className="taskList__BlockButton">Add task</BlockButton>
-      </NavLink>
+      </StyledStack>
+      <Link underline="none" component={NavLink} to={Pages.addTaskPage}>
+        <BlockButton>Add task</BlockButton>
+      </Link>
     </>
   );
 }
