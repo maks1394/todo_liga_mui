@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react';
 import { Controller, useForm } from 'react-hook-form';
 import { useEffect } from 'react';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { SearchFilter } from '../SearchFilter';
@@ -12,20 +11,14 @@ import { SearchInput } from 'components/index';
 import { TasksStoreInstance } from 'modules/index';
 
 function TasksSearchFormProto() {
-  const { handleSubmit, reset, control, setValue, formState, clearErrors } = useForm<SearchFormEntity>({
+  const { handleSubmit, reset, control, setValue } = useForm<SearchFormEntity>({
     defaultValues: DEFAULT_VALUES,
   });
   useEffect(() => {
     reset(TasksStoreInstance.searchForm);
   }, []);
   const onSubmit = async (data: SearchFormEntity) => {
-    console.log(data);
     await TasksStoreInstance.loadTasks(data);
-    try {
-      // await AddTaskStoreInstance.addTask(data);
-    } catch (error) {
-      console.log(error);
-    }
   };
   const onSearchInputChange = (text: string) => {
     setValue('searchValue', text);

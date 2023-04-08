@@ -17,15 +17,16 @@ function TasksProto() {
 
   return (
     <>
-      <Stack spacing={1} direction="column" justifyContent="flex-start" alignItems="stretch">
-        <Typography component="h1" variant="h3">
-          TODO LIST
-        </Typography>
-        <TasksSearchForm />
-        <TasksStats />
-        <ErrorBox error={TasksStoreInstance.error} />
-        <TasksList />
-      </Stack>
+      <ErrorBox error={TasksStoreInstance.error} onClose={() => TasksStoreInstance.closeAlert()}>
+        <Stack spacing={1} direction="column" justifyContent="flex-start" alignItems="stretch">
+          <Typography component="h1" variant="h3">
+            TODO LIST
+          </Typography>
+          <TasksSearchForm />
+          <TasksStats />
+          <TasksList />
+        </Stack>
+      </ErrorBox>
     </>
   );
 }

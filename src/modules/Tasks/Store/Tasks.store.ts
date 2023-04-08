@@ -27,6 +27,7 @@ class TasksStore {
       deleteTask: action,
       unmountTasks: action,
       _pushError: action,
+      closeAlert: action,
     });
   }
   async loadTasks(params?: SearchFormEntity) {
@@ -99,13 +100,13 @@ class TasksStore {
   private _pushError(error: string) {
     if (!this._error) {
       this._error = error;
-      setTimeout(() => {
-        this._error = null;
-      }, 2000);
     }
   }
   unmountTasks() {
     this._tasksStatus = 'loading';
+  }
+  closeAlert() {
+    this._error = null;
   }
   get tasks() {
     return this._tasks;

@@ -19,15 +19,16 @@ function EditTaskFormProto() {
 
   return (
     <>
-      <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={1}>
-        <Typography component="h1" variant="h3">
-          TODO LIST | Edit Task {params?.taskId}
-        </Typography>
-        <Loader isLoading={EditTaskStoreInstance.status === 'loading'}>
-          <EditTask />
-        </Loader>
-        <ErrorBox error={EditTaskStoreInstance.error} />
-      </Stack>
+      <ErrorBox error={EditTaskStoreInstance.error} onClose={() => EditTaskStoreInstance.closeAlert()}>
+        <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={1}>
+          <Typography component="h1" variant="h3">
+            TODO LIST | Edit Task {params?.taskId}
+          </Typography>
+          <Loader isLoading={EditTaskStoreInstance.status === 'loading'}>
+            <EditTask />
+          </Loader>
+        </Stack>
+      </ErrorBox>
     </>
   );
 }

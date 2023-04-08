@@ -1,7 +1,17 @@
 import React from 'react';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 import { ErrorBoxProps } from './ErrorBox.types';
-import './ErrorBox.css';
 
-export const ErrorBox = ({ error }: ErrorBoxProps) => {
-  return <div className={`error-box${error ? ' error-box--visible' : ''}`}>{error}</div>;
+export const ErrorBox = ({ error, onClose, children }: ErrorBoxProps) => {
+  return (
+    <>
+      <Snackbar open={!!error} autoHideDuration={6000} onClose={onClose}>
+        <Alert onClose={onClose} severity="error" sx={{ width: '100%' }}>
+          {error}
+        </Alert>
+      </Snackbar>
+      {children}
+    </>
+  );
 };

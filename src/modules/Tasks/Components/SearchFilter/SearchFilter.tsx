@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import { SearchFilterProps } from './SearchFilter.types';
 import { StyledButtonGroup } from './SearchFilter.styles';
 import { FilterType } from 'domains/index';

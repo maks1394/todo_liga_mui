@@ -81,7 +81,7 @@ function AddTaskPureFormProto() {
         <Controller
           control={control}
           name="important"
-          render={({ field, fieldState: { error } }) => (
+          render={({ field }) => (
             <FormControlLabel
               control={<Checkbox checked={field.value} onChange={onImportantChange} />}
               label="is important"

@@ -1,14 +1,10 @@
 import { observer } from 'mobx-react';
-import { CSSProperties, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '@mui/material/Button';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import DoneIcon from '@mui/icons-material/Done';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
 import { GreyButton, SmallButton, StyledStack, StyledTypography } from './Task.styles';
 import { TaskProps } from './Task.types';
 import { Pages } from 'constants/index';

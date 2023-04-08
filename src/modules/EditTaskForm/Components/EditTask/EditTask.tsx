@@ -90,7 +90,7 @@ function EditTaskProto() {
         <Controller
           control={control}
           name="important"
-          render={({ field, fieldState: { error } }) => (
+          render={({ field }) => (
             <FormControlLabel
               control={<Checkbox checked={field.value} onChange={onImportantChange} disabled={isImportantDisable} />}
               label="is important"
@@ -100,7 +100,7 @@ function EditTaskProto() {
         <Controller
           control={control}
           name="completed"
-          render={({ field, fieldState: { error } }) => (
+          render={({ field }) => (
             <FormControlLabel
               control={<Checkbox checked={field.value} onChange={onCompletedChange} />}
               label="is completed"

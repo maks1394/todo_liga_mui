@@ -7,15 +7,16 @@ import { ErrorBox, Loader } from 'components/index';
 function AddTaskProto() {
   return (
     <>
-      <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={1}>
-        <Typography component="h1" variant="h3">
-          TODO LIST | Add Task
-        </Typography>
-        <Loader isLoading={AddTaskStoreInstance.status === 'loading'}>
-          <AddTaskPureForm />
-        </Loader>
-        <ErrorBox error={AddTaskStoreInstance.error} />
-      </Stack>
+      <ErrorBox error={AddTaskStoreInstance.error} onClose={() => AddTaskStoreInstance.closeAlert()}>
+        <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={1}>
+          <Typography component="h1" variant="h3">
+            TODO LIST | Add Task
+          </Typography>
+          <Loader isLoading={AddTaskStoreInstance.status === 'loading'}>
+            <AddTaskPureForm />
+          </Loader>
+        </Stack>
+      </ErrorBox>
     </>
   );
 }

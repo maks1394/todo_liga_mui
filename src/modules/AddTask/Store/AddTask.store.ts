@@ -20,6 +20,7 @@ class AddTaskStore {
       status: computed,
       error: computed,
       pushError: action,
+      closeAlert: action,
     });
   }
   async addTask(newTask: AddTaskEntity) {
@@ -43,10 +44,10 @@ class AddTaskStore {
   pushError(error: string) {
     if (!this._error) {
       this._error = error;
-      setTimeout(() => {
-        this._error = null;
-      }, 2000);
     }
+  }
+  closeAlert() {
+    this._error = null;
   }
   get defaultValues() {
     return this._defaultValues;
