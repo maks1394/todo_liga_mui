@@ -36,6 +36,7 @@ export const StyledTypography = styled(Typography)<StyledTypographyProps>`
 export const StyledTitle = styled(StyledTypography)`
   max-width: 50%;
   overflow-wrap: break-word;
+  white-space: pre-wrap;
 `;
 
 export const StyledStack = styled(Stack)`
