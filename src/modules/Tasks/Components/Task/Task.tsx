@@ -5,7 +5,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Stack from '@mui/material/Stack';
-import { GreyButton, SmallButton, StyledStack, StyledTypography } from './Task.styles';
+import { GreyButton, SmallButton, StyledStack, StyledTitle, StyledTypography } from './Task.styles';
 import { TaskProps } from './Task.types';
 import { Pages } from 'constants/index';
 import { TasksStoreInstance } from 'modules/index';
@@ -27,12 +27,12 @@ function TaskProto(props: TaskProps) {
   return (
     <StyledStack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={0.5}>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <StyledTypography
+        <StyledTitle
           completed={props.completed ? 'true' : 'false'}
           important={props.important ? 'true' : 'false'}
           variant="body1">
           {props.title}
-        </StyledTypography>
+        </StyledTitle>
         <Stack direction="row" spacing={{ xs: 1, sm: 2, md: 4 }}>
           <SmallButton
             variant={`${props.important ? 'contained' : 'outlined'}`}

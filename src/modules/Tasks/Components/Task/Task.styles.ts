@@ -33,6 +33,11 @@ export const StyledTypography = styled(Typography)<StyledTypographyProps>`
   text-decoration: ${({ completed }) => (completed === 'true' ? 'line-through' : 'none')};
 `;
 
+export const StyledTitle = styled(StyledTypography)`
+  max-width: 50%;
+  overflow-wrap: break-word;
+`;
+
 export const StyledStack = styled(Stack)`
   width: 100%;
 `;
