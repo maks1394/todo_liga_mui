@@ -3,7 +3,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { LoaderProps } from './Loader.types';
 import { HiddenText } from './Loader.styles';
 
-export function Loader({ isLoading, children, variant = 'circle' }: LoaderProps) {
+export function Loader({ isLoading, children }: LoaderProps) {
   return isLoading ? (
     <>
       <CircularProgress />
