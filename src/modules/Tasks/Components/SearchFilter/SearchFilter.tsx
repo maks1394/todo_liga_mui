@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { SearchFilterProps } from './SearchFilter.types';
+import { StyledButtonGroup } from './SearchFilter.styles';
 import { FilterType } from 'domains/index';
 import { FILTER_TYPES } from 'constants/index';
 
@@ -11,8 +12,9 @@ export const SearchFilter = (props: SearchFilterProps) => {
     props.onChange(filter);
   };
   return (
-    <ButtonGroup fullWidth color="secondary">
+    <StyledButtonGroup fullWidth color="secondary">
       <Button
+        disableElevation
         onClick={onClickHandler(FILTER_TYPES.all)}
         variant={props.filter === FILTER_TYPES.all ? 'contained' : 'outlined'}>
         all
@@ -32,6 +34,6 @@ export const SearchFilter = (props: SearchFilterProps) => {
         variant={props.filter === FILTER_TYPES.important ? 'contained' : 'outlined'}>
         important
       </Button>
-    </ButtonGroup>
+    </StyledButtonGroup>
   );
 };

@@ -10,6 +10,7 @@ import './TasksSearchForm.css';
 import { TasksStoreInstance } from 'modules/index';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
+import { FindButton } from './TasksSearchForm.styles';
 
 function TasksSearchFormProto() {
   const { handleSubmit, reset, control, setValue, formState, clearErrors } = useForm<SearchFormEntity>({
@@ -46,7 +47,7 @@ function TasksSearchFormProto() {
         justifyContent="space-between"
         alignItems="stretch"
         component="form"
-        spacing={{ xs: 1, sm: 2, md: 3 }}
+        spacing={{ xs: 1 }}
         onSubmit={handleSubmit(onSubmit)}>
         <Controller
           control={control}
@@ -67,9 +68,9 @@ function TasksSearchFormProto() {
           )}
         />
         <Grid item xs={2} md={2}>
-          <Button fullWidth type="submit" variant="contained" size="small">
+          <FindButton disableElevation fullWidth type="submit" variant="contained" size="small">
             Find
-          </Button>
+          </FindButton>
         </Grid>
       </Grid>
     </>
