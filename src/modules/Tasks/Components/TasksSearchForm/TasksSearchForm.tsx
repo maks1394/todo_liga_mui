@@ -48,12 +48,13 @@ function TasksSearchFormProto() {
           alignItems="stretch"
           component="form"
           spacing={{ xs: 1 }}
+          columns={{ xs: 10, md: 12 }}
           onSubmit={handleSubmit(onSubmit)}>
           <Controller
             control={control}
             name="searchValue"
             render={({ field, fieldState: { error } }) => (
-              <Grid p={0} item xs={12} md={4}>
+              <Grid p={0} item xs={10} md={4}>
                 <SearchInput value={field.value} onChange={onSearchInputChange} onReset={onResetHandler} />
               </Grid>
             )}
@@ -62,7 +63,7 @@ function TasksSearchFormProto() {
             control={control}
             name="filter"
             render={({ field, fieldState: { error } }) => (
-              <Grid item xs={10} md={6}>
+              <Grid item xs={8} md={6}>
                 <SearchFilter filter={field.value} onChange={onChangeFilterHandler} />
               </Grid>
             )}

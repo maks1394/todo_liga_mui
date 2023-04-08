@@ -3,11 +3,13 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import { validationSchema } from './editTask.validation';
 import { EditTaskStoreInstance } from 'modules/index';
 import { EditTaskEntity } from 'domains/index';
-import { TextField } from 'components/TextField';
-import { Checkbox } from 'components/Checkbox';
 import { BlockButton } from 'components/index';
 
 function EditTaskProto() {
@@ -46,69 +48,67 @@ function EditTaskProto() {
       EditTaskStoreInstance.pushError((error as Error).message);
     }
   };
-  // useEffect(() => {}, [getValues().completed]);
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <Stack
+        direction="column"
+        justifyContent="flex-start"
+        alignItems="stretch"
+        spacing={1}
+        component={'form'}
+        onSubmit={handleSubmit(onSubmit)}>
         <Controller
           control={control}
           name="title"
           render={({ field, fieldState: { error } }) => (
-            <div>
-              <TextField
-                label="Title of task:"
-                value={field.value}
-                onChange={onTitleChange}
-                errorText={error?.message}
-                inputType="text"
-                placeholder="Task title"
-              />
-            </div>
+            <TextField
+              label="Title of task"
+              value={field.value}
+              onChange={onTitleChange}
+              error={!!error?.message}
+              type="text"
+              helperText={error?.message}
+              fullWidth
+            />
           )}
         />
         <Controller
           control={control}
           name="info"
           render={({ field, fieldState: { error } }) => (
-            <div>
-              <TextField
-                label="Information:"
-                value={field.value}
-                onChange={onInfoChange}
-                errorText={error?.message}
-                inputType="text"
-                placeholder="Information about task"
-              />
-            </div>
+            <TextField
+              label="Information"
+              value={field.value}
+              onChange={onInfoChange}
+              error={!!error?.message}
+              helperText={error?.message}
+              type="text"
+              fullWidth
+            />
           )}
         />
         <Controller
           control={control}
           name="important"
           render={({ field, fieldState: { error } }) => (
-            <div>
-              <Checkbox
-                label="is important"
-                checked={field.value}
-                onChange={onImportantChange}
-                disabled={isImportantDisable}
-              />
-              <div className="invalid-feedback">{error?.message}</div>
-            </div>
+            <FormControlLabel
+              control={<Checkbox checked={field.value} onChange={onImportantChange} disabled={isImportantDisable} />}
+              label="is important"
+            />
           )}
         />
         <Controller
           control={control}
           name="completed"
           render={({ field, fieldState: { error } }) => (
-            <div>
-              <Checkbox label="is completed" checked={field.value} onChange={onCompletedChange} />
-              <div className="invalid-feedback">{error?.message}</div>
-            </div>
+            <FormControlLabel
+              control={<Checkbox checked={field.value} onChange={onCompletedChange} />}
+              label="is completed"
+            />
           )}
         />
-        <BlockButton>Edit task</BlockButton>
-      </form>
+        <BlockButton type="submit">Edit task</BlockButton>
+      </Stack>
     </>
   );
 }

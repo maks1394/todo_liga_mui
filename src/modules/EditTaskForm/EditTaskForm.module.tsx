@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
 import { EditTask, EditTaskStoreInstance } from './index';
 import { ErrorBox, Loader } from 'components/index';
 
@@ -17,11 +19,15 @@ function EditTaskFormProto() {
 
   return (
     <>
-      <h1>TODO LIST | Edit Task {params?.taskId}</h1>
-      <Loader isLoading={EditTaskStoreInstance.status === 'loading'}>
-        <EditTask />
-      </Loader>
-      <ErrorBox error={EditTaskStoreInstance.error} />
+      <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={1}>
+        <Typography component="h1" variant="h3">
+          TODO LIST | Edit Task {params?.taskId}
+        </Typography>
+        <Loader isLoading={EditTaskStoreInstance.status === 'loading'}>
+          <EditTask />
+        </Loader>
+        <ErrorBox error={EditTaskStoreInstance.error} />
+      </Stack>
     </>
   );
 }
