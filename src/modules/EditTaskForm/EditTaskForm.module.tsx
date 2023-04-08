@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { EditTask, EditTaskStoreInstance } from './index';
-import { ErrorBox, Loader } from 'components/index';
+import { ErrorBox, SkeletonForm } from 'components/index';
 
 function EditTaskFormProto() {
   const params = useParams<'taskId'>();
@@ -24,9 +24,9 @@ function EditTaskFormProto() {
           <Typography component="h1" variant="h3">
             TODO LIST | Edit Task {params?.taskId}
           </Typography>
-          <Loader isLoading={EditTaskStoreInstance.status === 'loading'}>
+          <SkeletonForm isLoading={EditTaskStoreInstance.status === 'loading'}>
             <EditTask />
-          </Loader>
+          </SkeletonForm>
         </Stack>
       </ErrorBox>
     </>

@@ -27,7 +27,10 @@ function TaskProto(props: TaskProps) {
   return (
     <StyledStack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={0.5}>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <StyledTypography completed={props.completed} important={props.important} variant="body1">
+        <StyledTypography
+          completed={props.completed ? 'true' : 'false'}
+          important={props.important ? 'true' : 'false'}
+          variant="body1">
           {props.title}
         </StyledTypography>
         <Stack direction="row" spacing={{ xs: 1, sm: 2, md: 4 }}>
@@ -52,7 +55,10 @@ function TaskProto(props: TaskProps) {
           </GreyButton>
         </Stack>
       </Stack>
-      <StyledTypography completed={props.completed} important={props.important} variant="body1">
+      <StyledTypography
+        completed={props.completed ? 'true' : 'false'}
+        important={props.important ? 'true' : 'false'}
+        variant="body1">
         {props.info}
       </StyledTypography>
     </StyledStack>

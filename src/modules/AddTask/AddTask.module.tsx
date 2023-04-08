@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { AddTaskPureForm, AddTaskStoreInstance } from './index';
-import { ErrorBox, Loader } from 'components/index';
+import { ErrorBox, SkeletonForm } from 'components/index';
 
 function AddTaskProto() {
   return (
@@ -12,9 +12,9 @@ function AddTaskProto() {
           <Typography component="h1" variant="h3">
             TODO LIST | Add Task
           </Typography>
-          <Loader isLoading={AddTaskStoreInstance.status === 'loading'}>
+          <SkeletonForm isLoading={AddTaskStoreInstance.status === 'loading'}>
             <AddTaskPureForm />
-          </Loader>
+          </SkeletonForm>
         </Stack>
       </ErrorBox>
     </>

@@ -12,10 +12,10 @@ export const StyledList = styled(List)`
 
 export const StyledListItem = styled(ListItem)`
   border: 1px solid ${grey[400]};
-  &:not(:first-child) {
+  &:not(:first-of-type) {
     margin-top: -1px;
   }
-  &:first-child {
+  &:first-of-type {
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
   }
