@@ -1,7 +1,7 @@
 import React from 'react';
-import './PageContainer.css';
+import Container from '@mui/material/Container';
 import { PageContainerProps } from './PageContainer.types';
 
-export function PageContainer({ children, className = '' }: PageContainerProps) {
-  return <div className={`container ${className}`}>{children}</div>;
+export function PageContainer({ children }: PageContainerProps) {
+  return <Container maxWidth="md">{children}</Container>;
 }

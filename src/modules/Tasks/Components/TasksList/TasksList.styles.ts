@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles';
 
 export const StyledList = styled(List)`
   width: 100%;
+  padding: 0px;
 `;
 
 export const StyledListItem = styled(ListItem)`

@@ -1,43 +1,39 @@
 import { observer } from 'mobx-react';
+import Skeleton from '@mui/material/Skeleton';
+import Stack from '@mui/material/Stack';
+import { StatsText, StyledTypography } from './TasksStats.styles';
 import { TasksStoreInstance } from 'modules/index';
-import './TasksStats.css';
 
 function TasksStatsProto() {
-  const loader = (
-    <div className="stats__loader">
-      <div className="stats__circle"></div>
-    </div>
-  );
+  const loader = <Skeleton variant="circular" width={30} height={30} />;
 
   return (
-    <div className="stats">
-      <div className="stats__infoWrapper">
-        <div className="stats__infoItem">
-          Total:{' '}
-          {TasksStoreInstance.tasksStatus === 'loading' ? (
-            loader
-          ) : (
-            <span className="stats__number">{TasksStoreInstance.stats.total}</span>
-          )}
-        </div>
-        <div className="stats__infoItem">
-          Important:{' '}
-          {TasksStoreInstance.tasksStatus === 'loading' ? (
-            loader
-          ) : (
-            <span className="stats__number">{TasksStoreInstance.stats.important}</span>
-          )}
-        </div>
-        <div className="stats__infoItem">
-          Done:{' '}
-          {TasksStoreInstance.tasksStatus === 'loading' ? (
-            loader
-          ) : (
-            <span className="stats__number">{TasksStoreInstance.stats.done}</span>
-          )}
-        </div>
-      </div>
-    </div>
+    <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={0.5}>
+      <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={1}>
+        <StatsText variant="button">Total:</StatsText>
+        {TasksStoreInstance.tasksStatus === 'loading' ? (
+          loader
+        ) : (
+          <StyledTypography variant="button">{TasksStoreInstance.stats.total}</StyledTypography>
+        )}
+      </Stack>
+      <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={1}>
+        <StatsText variant="button">Important:</StatsText>
+        {TasksStoreInstance.tasksStatus === 'loading' ? (
+          loader
+        ) : (
+          <StyledTypography variant="button">{TasksStoreInstance.stats.important}</StyledTypography>
+        )}
+      </Stack>
+      <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={1}>
+        <StatsText variant="button">Done:</StatsText>
+        {TasksStoreInstance.tasksStatus === 'loading' ? (
+          loader
+        ) : (
+          <StyledTypography variant="button">{TasksStoreInstance.stats.done}</StyledTypography>
+        )}
+      </Stack>
+    </Stack>
   );
 }
 

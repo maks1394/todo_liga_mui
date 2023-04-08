@@ -1,13 +1,14 @@
 import React from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 import { LoaderProps } from './Loader.types';
+import { HiddenText } from './Loader.styles';
 
 export function Loader({ isLoading, children, variant = 'circle' }: LoaderProps) {
-  const loaderClass = variant === 'dot' ? 'spinner-grow spinner-grow-sm' : 'spinner-border text-primary';
-
   return isLoading ? (
-    <div className={loaderClass} role="status">
-      <span className="visually-hidden">Loading...</span>
-    </div>
+    <>
+      <CircularProgress />
+      <HiddenText>Loading...</HiddenText>
+    </>
   ) : (
     <>{children}</>
   );
