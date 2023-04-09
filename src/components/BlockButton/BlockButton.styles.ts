@@ -5,9 +5,21 @@ import { styled } from '@mui/material/styles';
 export const StyledBlockButton = styled(Button)`
   width: 100%;
   display: block;
-  background-color: ${grey[600]};
-  color: rgb(255, 255, 255);
+  background-color: ${({
+    theme: {
+      palette: { mode },
+    },
+  }) => (mode === 'light' ? grey[600] : grey[700])};
+  color: ${({
+    theme: {
+      palette: { mode },
+    },
+  }) => (mode === 'light' ? grey[200] : grey[50])};
   &:hover {
-    background-color: ${grey[700]};
+    background-color: ${({
+      theme: {
+        palette: { mode },
+      },
+    }) => (mode === 'light' ? grey[700] : grey[800])};
   }
 `;

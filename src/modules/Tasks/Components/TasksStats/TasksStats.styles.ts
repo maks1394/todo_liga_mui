@@ -3,12 +3,16 @@ import grey from '@mui/material/colors/grey';
 import { styled } from '@mui/material/styles';
 
 export const StyledTypography = styled(Typography)`
-  background-color: ${grey[200]};
+  background-color: ${({
+    theme: {
+      palette: { mode },
+    },
+  }) => (mode === 'light' ? grey[200] : grey[700])};
   border-radius: 4px;
   padding: 4px 8px;
 `;
 
 export const StatsText = styled(Typography)`
-  color: ${grey[900]};
+  color: ${(props) => props.theme.palette.text.primary};
   text-transform: none;
 `;

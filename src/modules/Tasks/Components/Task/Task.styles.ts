@@ -31,6 +31,8 @@ export const StyledTypography = styled(Typography)<StyledTypographyProps>`
   font-weight: ${(props) =>
     props.important === 'true' ? props.theme.typography.fontWeightBold : props.theme.typography.fontWeightRegular};
   text-decoration: ${({ completed }) => (completed === 'true' ? 'line-through' : 'none')};
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
 `;
 
 export const StyledTitle = styled(StyledTypography)`

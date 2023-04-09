@@ -11,7 +11,12 @@ export const StyledList = styled(List)`
 `;
 
 export const StyledListItem = styled(ListItem)`
-  border: 1px solid ${grey[400]};
+  border: 1px solid
+    ${({
+      theme: {
+        palette: { mode },
+      },
+    }) => (mode === 'light' ? grey[400] : grey[500])};
   &:not(:first-of-type) {
     margin-top: -1px;
   }
