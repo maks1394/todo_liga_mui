@@ -20,16 +20,19 @@ export const SearchFilter = (props: SearchFilterProps) => {
       </Button>
       <Button
         onClick={onClickHandler(FILTER_TYPES.active)}
+        disableElevation
         variant={props.filter === FILTER_TYPES.active ? 'contained' : 'outlined'}>
         active
       </Button>
       <Button
         onClick={onClickHandler(FILTER_TYPES.done)}
+        disableElevation
         variant={props.filter === FILTER_TYPES.done ? 'contained' : 'outlined'}>
         done
       </Button>
       <Button
         onClick={onClickHandler(FILTER_TYPES.important)}
+        disableElevation
         variant={props.filter === FILTER_TYPES.important ? 'contained' : 'outlined'}>
         important
       </Button>

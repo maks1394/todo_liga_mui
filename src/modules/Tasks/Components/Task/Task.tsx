@@ -38,19 +38,21 @@ function TaskProto(props: TaskProps) {
             variant={`${props.important ? 'contained' : 'outlined'}`}
             disabled={props.completed}
             onClick={onClickImportantHandler}
+            disableElevation
             color="success">
             <PriorityHighIcon fontSize="small" />
           </SmallButton>
           <SmallButton
             variant={`${props.completed ? 'contained' : 'outlined'}`}
             onClick={onClickCompleteHandler}
+            disableElevation
             color={'error'}>
             <DoneIcon fontSize="small" />
           </SmallButton>
-          <SmallButton variant="outlined" onClick={onClickDeleteHandler} color={'error'}>
+          <SmallButton variant="outlined" disableElevation onClick={onClickDeleteHandler} color={'error'}>
             <DeleteIcon fontSize="small" />
           </SmallButton>
-          <GreyButton variant="outlined" onClick={onClickEditHandler}>
+          <GreyButton variant="outlined" disableElevation onClick={onClickEditHandler}>
             <EditIcon fontSize="small" />
           </GreyButton>
         </Stack>
