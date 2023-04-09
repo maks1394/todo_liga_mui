@@ -16,7 +16,7 @@ export const StyledListItem = styled(ListItem)`
       theme: {
         palette: { mode },
       },
-    }) => (mode === 'light' ? grey[400] : grey[500])};
+    }) => (mode === 'light' ? grey[400] : grey[800])};
   &:not(:first-of-type) {
     margin-top: -1px;
   }
