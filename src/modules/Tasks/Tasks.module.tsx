@@ -1,12 +1,11 @@
 import { observer } from 'mobx-react';
 import { useContext, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
-import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { TasksList } from './Components/TasksList';
 import { TasksSearchForm, TasksStats, TasksStoreInstance } from './index';
 import { ErrorBox } from 'components/index';
@@ -31,7 +30,7 @@ function TasksProto() {
               TODO LIST
             </Typography>
             <IconButton size="large" onClick={colorMode.toggleColorMode} color="inherit">
-              {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+              {theme.palette.mode === 'dark' ? <DarkModeIcon /> : <LightModeIcon />}
             </IconButton>
           </Stack>
           <TasksSearchForm />
