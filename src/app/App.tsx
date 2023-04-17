@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Theme } from './theme';
 import { Router } from 'router/index';
 
-export const App = () => {
+export function App() {
   return (
     <Theme>
       <CssBaseline />
@@ -14,4 +14,4 @@ export const App = () => {
       </BrowserRouter>
     </Theme>
   );
-};
+}

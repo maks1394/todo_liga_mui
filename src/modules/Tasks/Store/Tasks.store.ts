@@ -30,6 +30,7 @@ class TasksStore {
       closeAlert: action,
     });
   }
+
   async loadTasks(params?: SearchFormEntity) {
     this._tasksStatus = 'loading';
     try {

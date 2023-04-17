@@ -2,7 +2,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { grey } from '@mui/material/colors';
-import { styled } from '@mui/material/styles';
+import { css, styled } from '@mui/material/styles';
 
 export const SmallButton = styled(Button)`
   width: 30px;
@@ -26,13 +26,15 @@ export type StyledTypographyProps = {
 };
 
 export const StyledTypography = styled(Typography)<StyledTypographyProps>`
-  color: ${(props) =>
-    props.important === 'true' ? props.theme.palette.success.main : props.theme.palette.text.primary};
-  font-weight: ${(props) =>
-    props.important === 'true' ? props.theme.typography.fontWeightBold : props.theme.typography.fontWeightRegular};
-  text-decoration: ${({ completed }) => (completed === 'true' ? 'line-through' : 'none')};
   overflow-wrap: break-word;
   white-space: pre-wrap;
+  ${(props) => css`
+    color: ${props.important === 'true' ? props.theme.palette.success.main : props.theme.palette.text.primary};
+    font-weight: ${props.important === 'true'
+      ? props.theme.typography.fontWeightBold
+      : props.theme.typography.fontWeightRegular};
+    text-decoration: ${props.completed === 'true' ? 'line-through' : 'none'};
+  `}
 `;
 
 export const StyledTitle = styled(StyledTypography)`
